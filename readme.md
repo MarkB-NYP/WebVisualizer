@@ -4,6 +4,7 @@ Version 1.0
 
 ## Getting Started
 Click [HERE](https://markb-nyp.github.io/WebVisualizer) to visualize your microphone input.
+Remember to enable microphone permissions. None of your audio data is collected.
 
 MP3 files can also be visualized. See samples below:
 
