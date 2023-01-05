@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js" integrity="sha512-WJXVjqeINVpi5XXJ2jn0BSCfp0y80IKrYh731gLRnkAS9TKc5KNt/OfLtu+fCueqdWniouJ1ubM+VI/hbo7POQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./p5.sound.min.js"></script>
+      <title>HTML Music Vizualizer</title>
+
+      
+      <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+      <link href="./extraStyles.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+      <div id='title'><h1>River Flows In You</h1><h1 id ='chaos'>(MB Rock Version)</h1></div>
+      
+      <script>
+
+var i = -1;
+function typeWriter() {
+          
+var txt = '(MB Rock Version)'; /* The text */
+var speed = 50; /* The speed/duration of the effect in milliseconds */
+  if (i==-1){
+      document.getElementById("chaos").innerHTML = '';
+      i++;
+      setTimeout(typeWriter, speed);
+  }
+    else if (i < txt.length) {
+    document.getElementById("chaos").innerHTML += txt[i];
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+    else{i=-1}
+}
+      </script>
+      
+      
+      <script>
+          function preload() {  
+    song = loadSound('./audio/RiverRock_MB.mp3');
+}
+          function setup() {  
+    createCanvas(window.outerWidth,window.outerHeight);
+    angleMode(DEGREES);
+    song.play();    
+    amp = new p5.Amplitude();
+    var canvas1 =document.getElementById('defaultCanvas0');
+              canvas.style.height="100vh"
+              canvas.style.width="100vw"
+}
+          
+          
+          let song, buttton, amp;
+let volHistory = Array(360).fill(0);
+
+   var start = true;
+    var bounce = false;
+          
+const average = array => array.reduce((a, b) => a + b) / array.length;
+var rounds =360;
+var step = 1;
+var shake = 0
+function draw() {
+
+
+  background(0);
+  let vol = amp.getLevel()*5;
+  volHistory.push(vol);
+    if(bounce==true){
+document.getElementById("title").style.fontSize=`${7+vol/4}vh`;}
+    
+  translate(width/2+(0.6-(vol))*(width/100 * shake), height/2+(0.6-(vol))*(height/100 *shake))
+  noFill();
+  beginShape();
+    if (start==true){
+      for (let i = 0; i < rounds; i+=step) {
+          colorMode(HSB);
+          
+        stroke(-45+90*((average(volHistory)+vol)/2),70,100);
+        strokeWeight(vol*4);
+          
+        let r = map(volHistory[i], 0, 1, 10, 300);
+        let x = r * cos(i);
+        let y = r * sin(i);
+        vertex(x, y);
+      }
+  endShape();
+
+  if(volHistory.length > rounds) {
+    volHistory.splice(0,1);
+  }
+    }
+  
+  // ellipse(300, 300, vol*300, vol*300);
+}
+
+
+function touchStarted() {
+  getAudioContext().resume();
+}
+          
+ window.addEventListener("keydown", checkKeyPressed, false);         
+function checkKeyPressed(evt) {
+    if (evt.keyCode == "79") {
+        if (angleMode() == 'degrees'){angleMode(RADIANS);rounds=240;step = 11}
+        else{angleMode(DEGREES);rounds=360;step = 1}
+    }
+    
+    else if (evt.keyCode == "76") {
+        console.log('xxxx')
+        if (shake == 0){shake = 5;bounce=true}
+        else{shake=0;bounce=false}
+    }
+        else if (evt.keyCode == "77") {
+         typeWriter()
+    }
+    
+   
+} 
+          
+      </script>
+      
+  </body>
+</html>

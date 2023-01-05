@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
+
+*{
+    background: black;
+}
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    cursor:none; 
+}
+
+#defaultCanvas0{
+    
+    width:100vw;
+    height:100vh;
+    z-index:0
+}
+
+#title{
+    font-family: "Teko";
+    letter-spacing:2px;
+    text-shadow: #AAA 1px 0 10px;
+    background:none;
+    position:absolute;
+    z-index:9;
+    color:white;
+    text-align: center;
+    font-size:7vh;
+  left: 0;
+  right: 0;
+  top: 20vh;
+  bottom: 0;
+  margin: auto;
+        
+}
+
+#title h1, h3{
+    background:none;
+      -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+ font-weight: 500;
+  
+}
+
+
+
+@-webkit-keyframes glow {
+    0%,100%{text-shadow: blue 0px 0px 20px;}
+    50%{text-shadow: red 0px 0px 10px;}
+    
+}

@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js" integrity="sha512-WJXVjqeINVpi5XXJ2jn0BSCfp0y80IKrYh731gLRnkAS9TKc5KNt/OfLtu+fCueqdWniouJ1ubM+VI/hbo7POQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./p5.sound.min.js"></script>
+      <title>HTML Music Vizualizer</title>
+
+      
+      <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+      <link href="./extraStyles.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+      <div id='title'><h1>Name (Goo Goo Dolls)</h1><h1 id ='chaos'>MB EDM Remix</h1></div>
+      
+      <script>
+
+var i = -1;
+function typeWriter() {
+          
+var txt = 'MB EDM Remix'; /* The text */
+var speed = 50; /* The speed/duration of the effect in milliseconds */
+  if (i==-1){
+      document.getElementById("chaos").innerHTML = '';
+      i++;
+      setTimeout(typeWriter, speed);
+  }
+    else if (i < txt.length) {
+    document.getElementById("chaos").innerHTML += txt[i];
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+    else{i=-1}
+}
+      </script>
+      
+      
+      <script>
+          function preload() {  
+    song = loadSound('./audio/Goo_Goo_Dolls_-_Name_MB_Remix.mp3');
+}
+          function setup() {  
+    createCanvas(window.outerWidth,window.outerHeight);
+    angleMode(DEGREES);
+    song.play();    
+    amp = new p5.Amplitude();
+    var canvas1 =document.getElementById('defaultCanvas0');
+              canvas.style.height="100vh"
+              canvas.style.width="100vw"
+}
+          
+          
+let volHistory = Array(360).fill(0);
+
+   var start = true;
+    var bounce = false;
+          
+const average = array => array.reduce((a, b) => a + b) / array.length;
+var rounds =360;
+var step = 1;
+var shake = 0
+function draw() {
+
+
+  background(0);
+  let vol = amp.getLevel()*5;
+  volHistory.push(vol);
+    if(bounce==true){
+document.getElementById("title").style.fontSize=`${7+vol/4}vh`;}
+    
+  translate(width/2+(0.6-(vol))*(width/100 * shake), height/2+(0.6-(vol))*(height/100 *shake))
+  noFill();
+    
+    
+        beginShape();
+      for (let i = 0; i < rounds; i+=step) {
+          colorMode(HSB);
+          var C2 = (volHistory[rounds/2])/2;
+        stroke(30+90*(C2),70,100*vol);
+        strokeWeight(1+vol*8);
+        strokeCap(ROUND);
+        let r = map(volHistory[i], 0, 1, 10, 300);
+        let x = r * cos(i);
+        let y = r * sin(i);
+        curveVertex(y,x);
+
+      }
+    
+  endShape();
+    
+  beginShape();
+
+    if (start==true){
+      for (let i = 0; i < rounds; i+=step) {
+          colorMode(HSB);
+          var C2 = (average(volHistory)+vol)/2;
+        stroke(100+90*(C2),70,100);
+        strokeWeight(vol*4);
+          
+        let r = map(volHistory[i], 0, 1, 10, 300);
+        let x = r * cos(i);
+        let y = r * sin(i);
+        curveVertex(x, y);
+
+      }
+  endShape();
+        
+
+
+  if(volHistory.length > rounds) {
+    volHistory.splice(0,1);
+  }
+    }
+  
+}
+
+
+function touchStarted() {
+  getAudioContext().resume();
+}
+          
+ window.addEventListener("keydown", checkKeyPressed, false);         
+function checkKeyPressed(evt) {
+    if (evt.keyCode == "79") {
+        if (angleMode() == 'degrees'){angleMode(RADIANS);rounds=360;step = 10}
+        else{angleMode(DEGREES);rounds=360;step = 1}
+    }
+    
+    else if (evt.keyCode == "76") {
+        if (shake == 0){shake = 5;bounce=true}
+        else{shake=0;bounce=false}
+    }
+        else if (evt.keyCode == "77") {
+         typeWriter()
+            //song.jump(80); 
+    }
+    
+   
+} 
+         
+      </script>
+      
+  </body>
+</html>
