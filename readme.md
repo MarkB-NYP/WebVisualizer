@@ -6,7 +6,9 @@ Version 1.0
 Click [HERE](https://markb-nyp.github.io/WebVisualizer) to visualize your microphone input.
 Remember to enable microphone permissions. None of your audio data is collected.
 
-MP3 files can also be visualized. See samples below:
+Hold a music player near the mic, sing, play an instrument, or connect an audio interface. The display on your screen will change in real time to match the audio input. See Controls section for additional options.
+
+It works with MP3 files too. Some samples below:
 
 https://markb-nyp.github.io/WebVisualizer/GooGoo.html
 
